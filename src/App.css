@@ -1,0 +1,98 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+/* 1. Defina o tema Padrão (Light) dentro de :root */
+:root {
+  --color-primary: #2563EB;
+  /* Azul */
+  --color-bg: #FFFFFF;
+  /* Branco */
+  --color-text: #0F172A;
+  /* Quase preto */
+}
+
+/* 
+  2. Sobrescreva APENAS as variáveis para o tema Dark
+*/
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-primary: #3B82F6;
+    /* Azul mais claro para contraste */
+    --color-bg: #0F172A;
+    /* Fundo escuro */
+    --color-text: #F8FAFC;
+    /* Texto claro */
+  }
+}
+
+@theme {
+  /* O 'var(--...)' conecta o utilitário do Tailwind à variável dinâmica acima */
+  --color-primary: var(--color-primary);
+  --color-background: var(--color-bg);
+  --color-text-main: var(--color-text);
+  /* Tipografia */
+  --font-title: "Lato", sans-serif;
+  --font-body: "Inter", sans-serif, i-sans-serif, system-ui, ;
+
+  /* Animações */
+
+}
+
+
+@layer base {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-title);
+  }
+
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
