@@ -34,15 +34,14 @@ function App() {
             <div className="flex flex-col gap-4">
               <form method="post" action="flex flex-col gap-4">
                 <label htmlFor="x-ray">Envie uma imagem para analise:</label>
-                <button>
-                  <input
-                    className="w-full"
-                    type="file"
-                    id="x-ray"
-                    name="x-ray"
-                    accept="image/png, image/jpeg, image/jpg"
-                  />
-                </button>
+                <input
+                  className="w-full bg-primary cursor-pointer"
+                  type="file"
+                  id="x-ray"
+                  name="x-ray"
+                  accept="image/png, image/jpeg, image/jpg"
+                />
+                <button>Submit</button>
               </form>
             </div>
 
