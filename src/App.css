@@ -9,6 +9,7 @@
   /* Branco */
   --color-text: #0F172A;
   /* Quase preto */
+  --color-error: #8e3e3e;
 }
 
 /* 
@@ -22,6 +23,8 @@
     /* Fundo escuro */
     --color-text: #F8FAFC;
     /* Texto claro */
+
+    --color-error: #ca6666;
   }
 }
 
@@ -30,8 +33,10 @@
   --color-primary: var(--color-primary);
   --color-background: var(--color-bg);
   --color-text-main: var(--color-text);
-  /* Tipografia */
-  --font-title: "Lato", sans-serif;
+
+  --color-error: var(--color-error)
+    /* Tipografia */
+    --font-title: "Lato", sans-serif;
   --font-body: "Inter", sans-serif, i-sans-serif, system-ui, ;
 
   /* Animações */

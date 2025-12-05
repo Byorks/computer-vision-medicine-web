@@ -1,7 +1,7 @@
 import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
-
+ 
 // Lucide Icons
 import { ImageUp } from "lucide-react";
 
@@ -24,7 +24,11 @@ function App() {
             </a>
           </div>
 
-          <FileUpload></FileUpload>
+          <div className="w-full flex flex-col gap-8">
+            <h1 className="text-center">Computer Vision Medicine</h1>
+ 
+            <FileUpload></FileUpload>
+          </div>
         </section>
       </main>
     </>
