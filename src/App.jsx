@@ -1,7 +1,7 @@
 import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
- 
+
 // Lucide Icons
 import { ImageUp } from "lucide-react";
 
@@ -9,33 +9,36 @@ import { ImageUp } from "lucide-react";
 import "./App.css";
 
 import FileUpload from "./components/FileUpload";
+import ThemeToggle from "./components/ThemeToggle";
 
 function App() {
   return (
-    <>
-      <main>
-        <section>
-          <div className="w-full flex justify-center">
-            {/* <a href="https://vite.dev" target="_blank">
+    <main className="w-full">
+      <section className="w-full max-w-6xl">
+        <div className="w-full">
+          <ThemeToggle></ThemeToggle>
+        </div>
+
+        <div className="w-full flex justify-center">
+          {/* <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a> */}
-            <a href="https://react.dev" className="" target="_blank">
-              <img src={reactLogo} className="logo react" alt="React logo" />
-            </a>
-          </div>
+          <a href="https://react.dev" className="" target="_blank">
+            <img src={reactLogo} className="logo react" alt="React logo" />
+          </a>
+        </div>
 
-          <div className="w-full flex flex-col gap-8">
-            <h1 className="text-center">Computer Vision Medicine</h1>
- 
-            <FileUpload></FileUpload>
-          </div>
-        </section>
-      </main>
-    </>
+        <div className="w-full flex flex-col gap-10">
+          <h1 className="text-center">Computer Vision Medicine</h1>
+
+          <FileUpload></FileUpload>
+        </div>
+      </section>
+    </main>
   );
 }
 // ** To-do **
-// Preciso transformar em gráficos
+// Preciso transformar em gráficos o objeto recebido
 // // {
 //   "no_finding": 62.38,
 //   "enlarged_cardiomediastinum": 3.08,
@@ -54,5 +57,6 @@ function App() {
 // }
 // Fazer funcionalidade de drag-and-drop
 // Fazer uma barra de progresso?
+// Fazer tutorial demonstrativo?
 
 export default App;
