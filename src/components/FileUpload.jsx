@@ -160,10 +160,12 @@ export default function FileUpload() {
             onDragOver={onDragOver}
             onDragLeave={onDragLeave}
             onDrop={onDrop}
-            className={`flex justify-center items-center px-6 gap-4 bg-secondary h-24 border-2 rounded-xl cursor-pointer transition-all duration-300 ${
-              isDragging ? "border-primary scale-[1.02]" : ""
+            className={`flex justify-center items-center px-6 gap-4 bg-secondary h-24 hover:border-1 rounded-xl cursor-pointer transition-all duration-300 hover:drop-shadow-light ${
+              isDragging ? "hover:border-primary scale-[1.02]" : ""
             } ${
-              file ? "border-green-500 bg-green-50 dark:bg-green-800/10" : ""
+              file
+                ? " border-2 border-green-500 bg-green-50 dark:bg-green-800/10"
+                : ""
             }`}
           >
             <ImageUp />
@@ -201,18 +203,26 @@ export default function FileUpload() {
       {/* preview */}
 
       {file && (
-        <div className="flex justify-between bg-secondary p-6 rounded-2xl border-2 border-green-500 ">
-          <div>
-            <h2>Detalhes do arquivo</h2>
-            <ul>
-              <li>Nome: {file.name}</li>
-              <li>Tipo: {file.type}</li>
-              <li>Size: {file.size} bytes</li>
-            </ul>
+        <div className="flex flex-col justify-between bg-secondary p-6 rounded-2xl border-2 border-green-500  ">
+          <div className="w-full">
+            <h2 className="text-lg pb-2">Detalhes do arquivo</h2>
           </div>
-          <div className="w-1/2">
-            <h2>Image preview</h2>
-            <div></div>
+          <div className="flex w-full">
+            <div className="w-1/2">
+              <ul>
+                <li>Nome: {file.name}</li>
+                <li>Tipo: {file.type}</li>
+                <li>Size: {file.size} bytes</li>
+              </ul>
+            </div>
+
+            <div className="w-1/2">
+              <h3>Image preview</h3>
+              <div>
+                {" "}
+                <img src={file} alt="" />
+              </div>
+            </div>
           </div>
         </div>
       )}

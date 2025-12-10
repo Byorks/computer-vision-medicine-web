@@ -43,6 +43,9 @@
   --font-body: "Inter", sans-serif, i-sans-serif, system-ui, ;
 
   /* Animações */
+
+  /* Shadow */
+  --drop-shadow-light: 0 0 2em #61dafbaa;
 }
 
 
@@ -77,7 +80,7 @@
   transition: filter 300ms;
 }
 
-.logo:hover {
+.logo {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
 
