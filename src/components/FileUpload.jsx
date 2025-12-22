@@ -2,6 +2,7 @@
 import { ImageUp } from "lucide-react";
 import { useState } from "react";
 import HorizontalChart from "./HorizontalChart";
+import { useEffect } from "react";
 
 // Chart Labels
 const labels = [
@@ -30,6 +31,21 @@ export default function FileUpload() {
   const [error, setError] = useState(null);
   const [chartData, setChartData] = useState({ datasets: [] });
   const [isDragging, setIsDragging] = useState(false);
+  const [imgPreview, setImagePreview] = useState(null);
+
+  useEffect(() => {
+    if (!file) {
+      setImagePreview(null);
+      return;
+    }
+
+    // Cria uma URL temporária para passarmos o caminho da imagem
+    const objectUrl = URL.createObjectURL(file);
+    setImagePreview(objectUrl);
+
+    // Limpa a memória quando o arquivo mudar ou o componente sumir
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [file]);
 
   // Pega o arquivo
   const handleFileChange = async (e) => {
@@ -139,8 +155,12 @@ export default function FileUpload() {
   };
 
   return (
-    <>
-      <div className="flex flex-col gap-4">
+    <div className="w-full flex flex-col gap-10 bg-background-2  border rounded-2xl p-6">
+      <div
+        onDragOver={onDragOver}
+        onDragLeave={onDragLeave}
+        className="flex flex-col gap-4"
+      >
         <h2>Classificação de doenças cardíacas</h2>
         <p>
           Realiza classificação de doenças cardíacas em Raio X do tórax com
@@ -157,28 +177,30 @@ export default function FileUpload() {
           {/* Area de drag and drop */}
           <label
             htmlFor="x-ray"
-            onDragOver={onDragOver}
-            onDragLeave={onDragLeave}
             onDrop={onDrop}
-            className={`flex justify-center items-center px-6 gap-4 bg-secondary h-24 hover:border-1 rounded-xl cursor-pointer transition-all duration-300 hover:drop-shadow-light ${
+            className={`h-24 flex justify-center items-center px-6 gap-4 rounded-xl cursor-pointer transition-all duration-300 ease-in-out hover:drop-shadow-light ${
               isDragging ? "hover:border-primary scale-[1.02]" : ""
             } ${
               file
                 ? " border-2 border-green-500 bg-green-50 dark:bg-green-800/10"
-                : ""
+                : "border border-primary hover:border hover:border-secondary"
             }`}
           >
             <ImageUp />
 
-            {!file ? (
+            {isDragging ? (
               <div>
-                <span className="font-semibold text-primary">
+                <span className="font-semibold text-secondary">
+                  Solte a imagem <span>aqui</span>
+                </span>
+              </div>
+            ) : (
+              <div>
+                <span className="font-semibold text-secondary">
                   Clique para enviar
                 </span>{" "}
                 ou arraste e solte
               </div>
-            ) : (
-              <span>{file.name}</span>
             )}
           </label>
 
@@ -193,7 +215,7 @@ export default function FileUpload() {
           <button
             type="submit"
             disabled={!file || isLoading}
-            className="disabled:cursor-not-allowed"
+            className="disabled:cursor-not-allowed bg-primary text-text-2 disabled:bg-background disabled:text-neutral-400 disabled:hover:border-transparent font-semibold"
           >
             {isLoading ? "Enviando..." : "Fazer Upload"}
           </button>
@@ -201,11 +223,10 @@ export default function FileUpload() {
       </div>
 
       {/* preview */}
-
       {file && (
-        <div className="flex flex-col justify-between bg-secondary p-6 rounded-2xl border-2 border-green-500  ">
+        <div className="flex flex-col justify-between bg-background p-6 rounded-2xl border-2 border-green-500  ">
           <div className="w-full">
-            <h2 className="text-lg pb-2">Detalhes do arquivo</h2>
+            <h2 className="text-lg pb-2 font-semibold">Detalhes do arquivo</h2>
           </div>
           <div className="flex w-full">
             <div className="w-1/2">
@@ -217,10 +238,13 @@ export default function FileUpload() {
             </div>
 
             <div className="w-1/2">
-              <h3>Image preview</h3>
-              <div>
-                {" "}
-                <img src={file} alt="" />
+              <p className="pb-2">Image preview</p>
+              <div className="">
+                <img
+                  className="w-full h-auto rounded-md"
+                  src={imgPreview}
+                  alt="preview do Raio X"
+                />
               </div>
             </div>
           </div>
@@ -237,7 +261,7 @@ export default function FileUpload() {
 
       {/* Preview response Graphs */}
       {response && (
-        <div className="w-full h-[600px] bg-secondary p-6 rounded-2xl">
+        <div className="w-full h-[600px] bg-background-2 p-6 rounded-2xl">
           {chartData?.labels ? (
             <HorizontalChart data={chartData} />
           ) : (
@@ -253,6 +277,6 @@ export default function FileUpload() {
           <pre>{JSON.stringify(response, null, 2)}</pre>
         </div>
       )}
-    </>
+    </div>
   );
 }

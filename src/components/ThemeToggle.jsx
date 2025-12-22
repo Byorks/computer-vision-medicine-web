@@ -34,7 +34,7 @@ export default function ThemeToggle() {
 
   return (
     <>
-      <button onClick={toggleTheme} aria-label="Alterar tema">
+      <button className="" onClick={toggleTheme} aria-label="Alterar tema">
         {theme === "dark" ? <Sun></Sun> : <Moon></Moon>}
       </button>
     </>

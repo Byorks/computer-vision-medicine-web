@@ -3,14 +3,15 @@
 
 /* 1. Defina o tema Padrão (Light) dentro de :root */
 :root {
-  --color-primary: #3c5e94;
-  /* Azul */
-  --color-secondary: #9cc2ff;
-  /* Azul */
-  --color-background: #FFFFFF;
-  /* Branco */
+  --color-primary: #2353a0;
+  --color-secondary: #3264b4;
+  --color-background: #eefafd;
+
+  --color-background-2: #e0f5ff;
+
   --color-text: #0F172A;
-  /* Quase preto */
+  --color-text-2: #e2e8f5;
+
   --color-error: #8e3e3e;
 }
 
@@ -19,13 +20,11 @@
 */
 .dark {
   --color-primary: #5585ff;
-  /* Azul mais claro para contraste */
-  --color-secondary: #3040775e;
-  /* Azul */
+  --color-secondary: #6cc4ff;
   --color-background: #0F172A;
-  /* Fundo escuro */
+  --color-background-2: #1e233d;
   --color-text: #F8FAFC;
-  /* Texto claro */
+  --color-text-2: #051320;
 
   --color-error: #ca6666;
 }
@@ -35,10 +34,11 @@
   --color-primary: var(--color-primary);
   --color-secondary: var(--color-secondary);
   --color-background: var(--color-bg);
+  --color-background-2: var(--color-background-2);
   --color-text-main: var(--color-text);
-
+  --color-text-2: var(--color-text-2);
   --color-error: var(--color-error);
-    /* Tipografia */
+  /* Tipografia */
   --font-title: "Lato", sans-serif;
   --font-body: "Inter", sans-serif, i-sans-serif, system-ui, ;
 
@@ -66,7 +66,37 @@
   }
 }
 
-@layer components {}
+@layer components {
+  h2 {
+    @apply text-2xl;
+  }
+
+  button {
+    border-radius: 8px;
+    border: 1px solid var(--color-text);
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    background-color: var(--color-background-2);
+    cursor: pointer;
+    transition: border-color 0.25s;
+  }
+
+  button:hover {
+    border-color: var(--color-secondary);
+  }
+
+  button:disabled {
+    border: none;
+  }
+
+  /* button:focus,
+  button:focus-visible {
+    outline: 4px auto -webkit-focus-ring-color;
+  } */
+
+}
 
 #root {
   margin: 0 auto;
@@ -74,14 +104,14 @@
 }
 
 .logo {
-  height: 6em;
-  padding: 1.5em;
+ 
+  
   will-change: filter;
   transition: filter 300ms;
 }
 
-.logo {
-  filter: drop-shadow(0 0 2em #646cffaa);
+.logo:hover {
+  filter: drop-shadow(0 0 2em #aaaeff);
 }
 
 .logo.react:hover {
@@ -107,4 +137,3 @@
 .card {
   padding: 2em;
 }
-
