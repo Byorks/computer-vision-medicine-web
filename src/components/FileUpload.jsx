@@ -33,6 +33,10 @@ export default function FileUpload() {
   const [isDragging, setIsDragging] = useState(false);
   const [imgPreview, setImagePreview] = useState(null);
 
+  const delay = (ms) => {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  };
+
   useEffect(() => {
     if (!file) {
       setImagePreview(null);
@@ -69,6 +73,9 @@ export default function FileUpload() {
 
   const onDragLeave = (e) => {
     e.preventDefault();
+
+    if (e.currentTarget.contains(e.relatedTarget)) return;
+
     setIsDragging(false);
   };
 
@@ -93,6 +100,27 @@ export default function FileUpload() {
       setResponse(null);
     }
   };
+
+  // Scroll quando a resposta chegar
+  useEffect(() => {
+    if (response) {
+      // Pequeno timeout para garantir que o react renderizou em tela
+      const doScroll = async () => {
+        await delay(100);
+
+        const section = document.getElementById("analise-results");
+  
+        if (section) {
+          section.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }
+      };
+      
+      doScroll();
+    }
+  }, [response]);
 
   // Envia para a API
   const handleSubmit = async (e) => {
@@ -150,12 +178,13 @@ export default function FileUpload() {
       console.log(err);
       setError("Erro ao conectar ao servidor.");
     } finally {
+      await delay(2000);
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="w-full flex flex-col gap-10 bg-background-2  border rounded-2xl p-6">
+    <div className="section-enter w-full flex flex-col gap-10 bg-background-2  border rounded-2xl p-6">
       <div
         onDragOver={onDragOver}
         onDragLeave={onDragLeave}
@@ -214,10 +243,32 @@ export default function FileUpload() {
           />
           <button
             type="submit"
-            disabled={!file || isLoading}
+            disabled={false}
             className="disabled:cursor-not-allowed bg-primary text-text-2 disabled:bg-background disabled:text-neutral-400 disabled:hover:border-transparent font-semibold"
           >
-            {isLoading ? "Enviando..." : "Fazer Upload"}
+            {isLoading ? (
+              <div className="flex gap-2 text-background-2">
+                <svg
+                  width={24}
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M12,4a8,8,0,0,1,7.89,6.7A1.53,1.53,0,0,0,21.38,12h0a1.5,1.5,0,0,0,1.48-1.75,11,11,0,0,0-21.72,0A1.5,1.5,0,0,0,2.62,12h0a1.53,1.53,0,0,0,1.49-1.3A8,8,0,0,1,12,4Z">
+                    <animateTransform
+                      attributeName="transform"
+                      type="rotate"
+                      dur="0.75s"
+                      values="0 12 12;360 12 12"
+                      repeatCount="indefinite"
+                    />
+                  </path>
+                </svg>
+                <p>Carregando...</p>
+              </div>
+            ) : (
+              "Fazer Upload"
+            )}
           </button>
         </form>
       </div>
@@ -254,14 +305,17 @@ export default function FileUpload() {
       {/* Erros */}
       {error && (
         <div role="alert" className="bg-error p-6 rounded-2xl">
-          <p>Teste de erro em tela</p>
+          <h2>Erro</h2>
           {error}
         </div>
       )}
 
       {/* Preview response Graphs */}
       {response && (
-        <div className="w-full h-[600px] bg-background-2 p-6 rounded-2xl">
+        <div
+          id="analise-results"
+          className="w-full h-[600px] bg-background-2 p-6 rounded-2xl"
+        >
           {chartData?.labels ? (
             <HorizontalChart data={chartData} />
           ) : (

@@ -20,7 +20,7 @@ function App() {
         </div>
 
         <div className="w-full flex justify-center mb-4">
-          <h1 className="text-center logo">Computer Vision Medicine</h1>
+          <h1 className="text-center logo loader-scan"><span>Computer Vision Medicine</span></h1>
         </div>
 
         <FileUpload></FileUpload>

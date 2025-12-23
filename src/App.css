@@ -3,8 +3,8 @@
 
 /* 1. Defina o tema Padrão (Light) dentro de :root */
 :root {
-  --color-primary: #2353a0;
-  --color-secondary: #3264b4;
+  --color-primary: #3a72cc;
+  --color-secondary: #548ce6;
   --color-background: #eefafd;
 
   --color-background-2: #e0f5ff;
@@ -19,7 +19,7 @@
   2. Sobrescreva APENAS as variáveis para o tema Dark
 */
 .dark {
-  --color-primary: #5585ff;
+  --color-primary: #5b89ff;
   --color-secondary: #6cc4ff;
   --color-background: #0F172A;
   --color-background-2: #1e233d;
@@ -96,6 +96,141 @@
     outline: 4px auto -webkit-focus-ring-color;
   } */
 
+  .loader-scan {
+    max-width: fit-content;
+    /* Tamanho do texto */
+    font-size: 50px;
+    /* Sua fonte configurada */
+    font-family: var(--font-title);
+    font-weight: 700;
+    position: relative;
+    /* Cor do texto dinâmica */
+    color: var(--color-text);
+    /* Importante para o cálculo da altura */
+    line-height: 1;
+  }
+
+  .loader-scan span {
+    display: inline-block;
+    /* Necessário para animação funcionar em span */
+    animation: cut-horizontal 2.5s linear forwards;
+    /* animation: cut 2s 1; */
+    /* transition: 1s cubic-bezier(0.175, 0.885, 0.32, 1.275); */
+  }
+
+  /* O Laser (Brilho) */
+  .loader-scan::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 100%;
+    background-color: var(--color-secondary);
+    opacity: 0.6;
+    filter: blur(10px);
+    animation: laser-horizontal 2.5s linear forwards;
+    z-index: 0;
+  }
+
+
+  /* O Laser (Linha Sólida) */
+  .loader-scan::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    /* fino e vertical */
+    height: 100%;
+    background-color: var(--color-secondary);
+    border-radius: 4px;
+    animation: laser-horizontal 2.5s linear forwards;
+    z-index: 1;
+  }
+
+  .content-section {
+    opacity: 0;
+    transform: scale(0.7);
+    animation: fadeScale 1s ease forwards;
+    animation-delay: 2.5s;
+    /* Começa depois que o h1 termina + um respiro */
+  }
+
+  .section-enter {
+    opacity: 0;
+    transform: scale(0.66);
+    filter: blur(24px);
+    animation: tech-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: 2.5s;
+  }
+
+}
+
+/* Keyframes */
+@keyframes tech-in {
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes laser-horizontal {
+
+  /* nasce à esquerda */
+  0% {
+    left: 0%;
+    height: 100%;
+    opacity: 1;
+  }
+
+  /* varre o texto */
+  70% {
+    left: 100%;
+    height: 100%;
+    opacity: 1;
+  }
+
+  /* começa a encolher */
+  85% {
+    left: 100%;
+    height: 40%;
+    opacity: 0.6;
+  }
+
+  /* desaparece */
+  100% {
+    left: 100%;
+    height: 0%;
+    opacity: 0;
+  }
+}
+
+@keyframes cut-horizontal {
+
+  /* texto totalmente escondido */
+  0% {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  /* laser varrendo */
+  70% {
+    clip-path: inset(0 0 0 0);
+  }
+
+  /* mantém revelado */
+  100% {
+    clip-path: inset(0 0 0 0);
+  }
+
+}
+
+@keyframes fadeScale {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 #root {
@@ -104,8 +239,8 @@
 }
 
 .logo {
- 
-  
+
+
   will-change: filter;
   transition: filter 300ms;
 }
