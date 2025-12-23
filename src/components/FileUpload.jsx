@@ -4,23 +4,42 @@ import { useState } from "react";
 import HorizontalChart from "./HorizontalChart";
 import { useEffect } from "react";
 
-// Chart Labels
+// // Chart Labels
+// const labels = [
+//   "No finding",
+//   "Enlarged Cardiomediastinum",
+//   "Cardiomegaly",
+//   "Lung Opacity",
+//   "Lung Lesion",
+//   "Edema",
+//   "Consolidation",
+//   "Pneumonia",
+//   "Atelectasis",
+//   "Pneumothorax",
+//   "Pleural effusion",
+//   "Pleural other",
+//   "Fracture",
+//   "Support devices",
+// ];
+
+// Chart Labels (PT-BR)
 const labels = [
-  "No finding",
-  "Enlarged Cardiomediastinum",
-  "Cardiomegaly",
-  "Lung Opacity",
-  "Lung Lesion",
+  "Sem achados",
+  "Cardiomediastino aumentado",
+  "Cardiomegalia",
+  "Opacidade pulmonar",
+  "Lesão pulmonar",
   "Edema",
-  "Consolidation",
+  "Consolidação",
   "Pneumonia",
-  "Atelectasis",
-  "Pneumothorax",
-  "Pleural_effusion",
-  "Pleural_other",
-  "Fracture",
-  "Support_devices",
+  "Atelectasia",
+  "Pneumotórax",
+  "Derrame pleural",
+  "Outras alterações pleurais",
+  "Fratura",
+  "Dispositivos de suporte",
 ];
+
 
 // To-do configurar os dados com base na resposta
 
@@ -207,6 +226,13 @@ export default function FileUpload() {
           <label
             htmlFor="x-ray"
             onDrop={onDrop}
+            tabIndex={0}
+            role="button"
+            aria-label="Enviar imagem de raio-X"
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ')
+                document.getElementById('x-ray')?.click();
+            }}
             className={`h-24 flex justify-center items-center px-6 gap-4 rounded-xl cursor-pointer transition-all duration-300 ease-in-out hover:drop-shadow-light ${
               isDragging ? "hover:border-primary scale-[1.02]" : ""
             } ${
@@ -243,7 +269,7 @@ export default function FileUpload() {
           />
           <button
             type="submit"
-            disabled={false}
+            disabled={ !file || isLoading }
             className="disabled:cursor-not-allowed bg-primary text-text-2 disabled:bg-background disabled:text-neutral-400 disabled:hover:border-transparent font-semibold"
           >
             {isLoading ? (

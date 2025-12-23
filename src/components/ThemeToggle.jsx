@@ -34,8 +34,17 @@ export default function ThemeToggle() {
 
   return (
     <>
-      <button className="" onClick={toggleTheme} aria-label="Alterar tema">
-        {theme === "dark" ? <Sun></Sun> : <Moon></Moon>}
+      <button
+        className="p-2 rounded-lg  transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+        aria-label={theme === "dark" ? "Mudar para tema claro" : "Mudar para tema escuro"}
+        onClick={toggleTheme}
+        title={theme === "dark" ? "Tema claro" : "Tema escuro"}
+      >
+        {theme === "dark" ? (
+          <Sun aria-hidden="true" />
+        ) : (
+          <Moon aria-hidden="true" />
+        )}
       </button>
     </>
   );
