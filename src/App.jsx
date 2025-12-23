@@ -1,7 +1,3 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-
 // Lucide Icons
 import { ImageUp } from "lucide-react";
 
@@ -28,10 +24,4 @@ function App() {
     </main>
   );
 }
-// ** To-do **
-// Fazer funcionalidade de drag-and-drop - aprimorar
-// Fazer uma barra de progresso?
-// Fazer tutorial demonstrativo?
-// Fazer uma detecção se de fato é um Raio-x torax pa?
-
 export default App;

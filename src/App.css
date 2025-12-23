@@ -53,6 +53,11 @@
   body {
     background-color: var(--color-background);
     color: var(--color-text);
+    margin: 0;
+    display: flex;
+    place-items: center;
+    min-width: 320px;
+    min-height: 100vh;
   }
 
   h1,
